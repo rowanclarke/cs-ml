@@ -4,20 +4,12 @@ using System.Collections.Generic;
 
 namespace MachineLearning.Core
 {
-    public class Model
+    public abstract class Model
     {
-        private List<Layer> layers = new List<Layer>();
+        public Layer input;
+        public Layer output;
 
-        public Model(List<Layer> layers)
-        {
-            this.layers = layers;
-        }
+        public abstract void Fit(int epochs, Vector input, Vector target);
 
-        public Model() { }
-
-        public void Add(Layer layer)
-        {
-            layers.Add(layer);
-        }
     }
 }

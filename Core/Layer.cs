@@ -7,16 +7,15 @@ using System.Text;
 
 namespace MachineLearning.Core
 {
-    public class Layer
+    public abstract class Layer
     {
-        public delegate void Activation();
-        private int[] shape;
-        private Activation activation;
-        public Layer(int[] shape, Activation activation)
-        {
-            this.shape = shape;
-            this.activation = activation;
-        }
+        public Layer next;
+        public Layer prev;
 
+        public float rate;
+        
+        public abstract void Forward();
+        public abstract void Backward();
+        
     }
 }
