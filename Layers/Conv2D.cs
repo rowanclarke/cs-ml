@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MachineLearning.Core;
+﻿using MachineLearning.Core;
+using MachineLearning.Type;
+using MachineLearning.Activations;
 
 namespace MachineLearning.Layers
 {
@@ -37,7 +36,7 @@ namespace MachineLearning.Layers
         public override void Backward()
         {
             filter -= rate * Convolution(input, 2 * (output - target));
-
+            output -= rate * FullConvolutionRot(2 * (output - target), filter);
         }
 
         public static Matrix Convolution(Matrix input, Matrix filter)
@@ -49,7 +48,7 @@ namespace MachineLearning.Layers
 
         public static void Convolution(Matrix input, Matrix filter, Matrix output)
         {
-            float sum;
+            double sum;
             for (int i = 0; i < output.size[0]; i++)
             {
                 for (int j = 0; j < output.size[1]; j++)
@@ -67,17 +66,17 @@ namespace MachineLearning.Layers
             }
         }
 
-        public static Matrix FullConvolution(Matrix input, Matrix filter)
+        public static Matrix FullConvolutionRot(Matrix input, Matrix filter)
         {
             Matrix output = new Matrix(input.size[0] + filter.size[0] - 1, input.size[1] + filter.size[1] - 1);
-            FullConvolution(input, filter, output);
+            FullConvolutionRot(input, filter, output);
             return output;
         }
 
-        public static void FullConvolution(Matrix input, Matrix filter, Matrix output)
+        public static void FullConvolutionRot(Matrix input, Matrix filter, Matrix output)
         {
-            
-            float sum;
+
+            double sum;
             int xi, yj;
             for (int i = 0; i < output.size[0]; i++)
             {
@@ -88,7 +87,7 @@ namespace MachineLearning.Layers
                     {
                         for (int y = 0; y < filter.size[1]; y++)
                         {
-                            xi = i - x; 
+                            xi = i - x;
                             yj = j - y;
                             if ((xi >= 0 && yj >= 0) && (xi < input.size[0] && yj < input.size[1]))
                             {
@@ -99,6 +98,12 @@ namespace MachineLearning.Layers
                     output[i, j] = sum;
                 }
             }
+        }
+
+        public override Feed ToFeed()
+        {
+            Feed feed = new Feed(output.size[0] * output.size[1], new Linear(), null);
+            return base.ToFeed();
         }
     }
 }

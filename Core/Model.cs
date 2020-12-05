@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using MachineLearning.Type;
+using System;
 
 namespace MachineLearning.Core
 {
-    public abstract class Model
+    public class Model
     {
         public Layer input;
         public Layer output;
 
-        public abstract void Fit(int epochs, Vector input, Vector target);
-
+        public virtual void Fit(int epochs, Vector input, Vector target)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

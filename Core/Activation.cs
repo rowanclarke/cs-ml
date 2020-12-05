@@ -1,12 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using MachineLearning.Type;
 
 namespace MachineLearning.Core
 {
-    public abstract class Activation
+    public class Activation
     {
-        public abstract Vector Activate(Vector vector);
-        public abstract Vector Deactivate(Vector vector);
+        public virtual Vector Activate(Vector vector)
+        {
+            throw new NotImplementedException();
+        }
+        public virtual Vector Deactivate(Vector vector)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

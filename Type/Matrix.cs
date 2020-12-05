@@ -1,17 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 
-namespace MachineLearning.Core
+namespace MachineLearning.Type
 {
     public class Matrix
     {
-        public float[,] matrix;
+        public double[,] matrix;
         public int[] size;
         public Matrix(int i, int j)
         {
             size = new int[] { i, j };
-            matrix = new float[i,j];
+            matrix = new double[i, j];
         }
 
         public void Randomise()
@@ -21,7 +20,7 @@ namespace MachineLearning.Core
             {
                 for (int j = 0; j < size[1]; j++)
                 {
-                    matrix[i, j] = (float) random.NextDouble();
+                    matrix[i, j] = random.NextDouble();
                 }
             }
         }
@@ -40,13 +39,13 @@ namespace MachineLearning.Core
             return sb.ToString();
         }
 
-        public float this[int i, int j]
+        public double this[int i, int j]
         {
             get => matrix[i, j];
             set => matrix[i, j] = value;
         }
 
-        public static Matrix operator *(float a, Matrix b)
+        public static Matrix operator *(double a, Matrix b)
         {
             Matrix matrix = new Matrix(b.size[0], b.size[1]);
             for (int i = 0; i < b.size[0]; i++)
@@ -71,7 +70,7 @@ namespace MachineLearning.Core
             }
             return matrix;
         }
-        public static Matrix operator +(float a, Matrix b)
+        public static Matrix operator +(double a, Matrix b)
         {
             Matrix matrix = new Matrix(b.size[0], b.size[1]);
             for (int i = 0; i < b.size[0]; i++)
@@ -96,7 +95,7 @@ namespace MachineLearning.Core
             }
             return matrix;
         }
-        public static Matrix operator -(float a, Matrix b)
+        public static Matrix operator -(double a, Matrix b)
         {
             Matrix matrix = new Matrix(b.size[0], b.size[1]);
             for (int i = 0; i < b.size[0]; i++)

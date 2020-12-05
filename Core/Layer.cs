@@ -1,21 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Numerics;
-using System.Reflection.Metadata;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text;
 
 namespace MachineLearning.Core
 {
-    public abstract class Layer
+    public class Layer
     {
         public Layer next;
         public Layer prev;
 
-        public float rate;
-        
-        public abstract void Forward();
-        public abstract void Backward();
-        
+        public double rate;
+
+        public virtual void Forward()
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void Backward()
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual Feed ToFeed()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

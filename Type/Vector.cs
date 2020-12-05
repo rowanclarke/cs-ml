@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MachineLearning.Core
+﻿namespace MachineLearning.Type
 {
     public class Vector
     {
-        public float[] vector;
+        public double[] vector;
         public int size;
-        public Vector(int size) {
+
+        public Vector(int size)
+        {
             this.size = size;
-            vector = new float[size];
+            vector = new double[size];
         }
 
-        public float this[int index]
+        public double this[int index]
         {
             get => vector[index];
             set => vector[index] = value;
@@ -28,7 +26,7 @@ namespace MachineLearning.Core
             }
             return c;
         }
-        public static Vector operator /(float a, Vector b)
+        public static Vector operator /(double a, Vector b)
         {
             Vector c = new Vector(b.size);
             for (int i = 0; i < b.size; i++)
@@ -40,14 +38,14 @@ namespace MachineLearning.Core
 
         public static Vector operator *(Vector a, Vector b)
         {
-            Vector c = new Vector(a.size); 
+            Vector c = new Vector(a.size);
             for (int i = 0; i < a.size; i++)
             {
                 c[i] = a[i] * b[i];
             }
             return c;
         }
-        public static Vector operator *(float a, Vector b)
+        public static Vector operator *(double a, Vector b)
         {
             Vector c = new Vector(b.size);
             for (int i = 0; i < b.size; i++)
@@ -66,7 +64,7 @@ namespace MachineLearning.Core
             }
             return c;
         }
-        public static Vector operator +(float a, Vector b)
+        public static Vector operator +(double a, Vector b)
         {
             Vector c = new Vector(b.size);
             for (int i = 0; i < b.size; i++)
@@ -85,7 +83,7 @@ namespace MachineLearning.Core
             }
             return c;
         }
-        public static Vector operator -(float a, Vector b)
+        public static Vector operator -(double a, Vector b)
         {
             Vector c = new Vector(b.size);
             for (int i = 0; i < b.size; i++)

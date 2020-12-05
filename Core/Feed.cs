@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MachineLearning.Core;
+﻿using MachineLearning.Type;
 
-namespace MachineLearning.Layers
+namespace MachineLearning.Core
 {
     public class Feed : Layer
     {
@@ -15,6 +12,7 @@ namespace MachineLearning.Layers
         public Vector[] buffer;
         public Vector neurons;
         public Vector target;
+        public Vector bias;
         public Vector sum;
 
         public Feed(int size, Activation activation, Feed prev)
@@ -26,6 +24,8 @@ namespace MachineLearning.Layers
             weights = new Vector[prev.size];
             buffer = new Vector[prev.size];
             neurons = new Vector(size);
+            target = new Vector(size);
+            bias = new Vector(size);
             sum = new Vector(size);
         }
 
@@ -51,6 +51,11 @@ namespace MachineLearning.Layers
                 }
                 prev.target[j] += prev.neurons[j];
             }
+        }
+
+        public override Feed ToFeed()
+        {
+            return this;
         }
     }
 }
