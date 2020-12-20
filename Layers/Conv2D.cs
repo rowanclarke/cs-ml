@@ -9,14 +9,14 @@ namespace MachineLearning.Layers
         public Matrix filter;
         public Matrix input;
         public Matrix output;
-        public Matrix target;
+        public Matrix aim;
 
         public Conv2D(int[] size, int[] filter)
         {
             input = new Matrix(size[0], size[1]);
             this.filter = new Matrix(filter[0], filter[1]);
             output = new Matrix(size[0] - filter[0] + 1, size[1] - filter[1] + 1);
-            target = new Matrix(size[0] - filter[0] + 1, size[1] - filter[1] + 1);
+            aim = new Matrix(size[0] - filter[0] + 1, size[1] - filter[1] + 1);
         }
 
         public Conv2D(Matrix input, int[] filter)
@@ -25,7 +25,7 @@ namespace MachineLearning.Layers
             this.filter = new Matrix(filter[0], filter[1]);
             this.filter.Randomise();
             output = new Matrix(input.size[0] - filter[0] + 1, input.size[1] - filter[1] + 1);
-            target = new Matrix(input.size[0] - filter[0] + 1, input.size[1] - filter[1] + 1);
+            aim = new Matrix(input.size[0] - filter[0] + 1, input.size[1] - filter[1] + 1);
         }
 
         public override void Forward()
@@ -35,18 +35,18 @@ namespace MachineLearning.Layers
 
         public override void Backward()
         {
-            filter -= rate * Convolution(input, 2 * (output - target));
-            output -= rate * FullConvolutionRot(2 * (output - target), filter);
+            filter -= rate * Convolution(input, 2 * (output - aim));
+            output -= rate * FullConvolutionRot(2 * (output - aim), filter);
         }
 
-        public static Matrix Convolution(Matrix input, Matrix filter)
+        private static Matrix Convolution(Matrix input, Matrix filter)
         {
             Matrix matrix = new Matrix(input.size[0] - filter.size[0] + 1, input.size[1] - filter.size[1] + 1);
             Convolution(input, filter, matrix);
             return matrix;
         }
 
-        public static void Convolution(Matrix input, Matrix filter, Matrix output)
+        private static void Convolution(Matrix input, Matrix filter, Matrix output)
         {
             double sum;
             for (int i = 0; i < output.size[0]; i++)
@@ -66,14 +66,14 @@ namespace MachineLearning.Layers
             }
         }
 
-        public static Matrix FullConvolutionRot(Matrix input, Matrix filter)
+        private static Matrix FullConvolutionRot(Matrix input, Matrix filter)
         {
             Matrix output = new Matrix(input.size[0] + filter.size[0] - 1, input.size[1] + filter.size[1] - 1);
             FullConvolutionRot(input, filter, output);
             return output;
         }
 
-        public static void FullConvolutionRot(Matrix input, Matrix filter, Matrix output)
+        private static void FullConvolutionRot(Matrix input, Matrix filter, Matrix output)
         {
 
             double sum;
@@ -100,10 +100,17 @@ namespace MachineLearning.Layers
             }
         }
 
-        public override Feed ToFeed()
+       /* public override Feed ToFeed()
         {
             Feed feed = new Feed(output.size[0] * output.size[1], new Linear(), null);
+            for (int i = 0; i < output.size[0]; i++)
+            {
+                for (int j = 0; j < output.size[1]; j++)
+                {
+                    feed.neurons[i * output.size[1] + j] = output[i, j];
+                }
+            }
             return base.ToFeed();
-        }
+        }*/
     }
 }

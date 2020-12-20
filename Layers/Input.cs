@@ -6,21 +6,16 @@ namespace MachineLearning.Layers
 {
     public class Input : Layer
     {
-        public int size;
-        public Vector neurons;
         public Input(int size)
         {
             this.size = size;
-            neurons = new Vector(size);
+            target = new Vector(size); // 
+            values = new Vector(size);
         }
 
-        public override void Forward()
+        public override void Run()
         {
-            throw new NotImplementedException();
-        }
-        public override void Backward()
-        {
-            throw new NotImplementedException();
+            next.Run();
         }
     }
 }

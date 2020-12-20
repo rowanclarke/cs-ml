@@ -11,6 +11,12 @@
             vector = new double[size];
         }
 
+        public Vector(double[] vector)
+        {
+            size = vector.Length;
+            this.vector = vector;
+        }
+
         public double this[int index]
         {
             get => vector[index];

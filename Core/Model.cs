@@ -1,14 +1,15 @@
 ﻿using MachineLearning.Type;
 using System;
+using MachineLearning.Layers;
 
 namespace MachineLearning.Core
 {
     public class Model
     {
-        public Layer input;
-        public Layer output;
+        public Input input;
+        public Output output;
 
-        public virtual void Fit(int epochs, Vector input, Vector target)
+        public virtual void Fit(Vector input, Vector target)
         {
             throw new NotImplementedException();
         }
